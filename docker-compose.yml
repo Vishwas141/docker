@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysql-server:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "4406:4406"
+    networks:
+      - vishwas-network
+  server-container:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: vishwas-nodeform
+    ports:
+      - "5000:5000"
+    networks:
+      - vishwas-network
+    depends_on:
+      - mysql-server
+
+networks:
+  vishwas-network:
+    driver: bridge
